@@ -1,2 +1,0 @@
-add_lunch_combo mk_markw-eng
-add_lunch_combo mk_markw-userdebug
