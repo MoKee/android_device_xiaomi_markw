@@ -126,10 +126,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9306.xml:system/etc/sound_trigger_mixer_paths_wcd9306.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml
 
-# Browser
-PRODUCT_PACKAGES += \
-    Gello
-
 # Camera
 PRODUCT_PACKAGES += \
     libshims_camera \
@@ -145,10 +141,8 @@ PRODUCT_PACKAGES += \
     init.qcom.sh \
     init.class_main.sh \
     init.mdm.sh \
-    init.msm.usb.configfs.rc \
     init.qcom.class_core.sh \
     init.qcom.early_boot.sh \
-    init.qcom.factory.rc \
     init.qcom.sensors.sh \
     init.qcom.syspart_fixup.sh \
     init.qcom.usb.sh
