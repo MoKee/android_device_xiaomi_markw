@@ -224,7 +224,8 @@ camera.hal1.packagelist=com.skype.raider,com.google.android.talk
 #bug156417 zhaoqf_sh add for battery charging off if CALL_STATE_OFFHOOK
 persist.sys.chgdisabled=0
 
-#set volte
+# wlan interface
+wifi.interface=wlan0
 
 #bug157860 wuwenting.wt add for ct auto reg
 ro.ct.device.model=XMP-2016060
