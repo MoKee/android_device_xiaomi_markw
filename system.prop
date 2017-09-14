@@ -219,7 +219,7 @@ ro.config.zram=true
 ro.cutoff_voltage_mv=3400
 
 #force HAL1 for below packages
-camera.hal1.packagelist=com.skype.raider,com.google.android.talk
+camera.hal1.packagelist=com.skype.raider,com.google.android.talk,org.cyanogenmod.snap
 
 #bug156417 zhaoqf_sh add for battery charging off if CALL_STATE_OFFHOOK
 persist.sys.chgdisabled=0
