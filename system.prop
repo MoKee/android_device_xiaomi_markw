@@ -218,6 +218,9 @@ ro.config.zram=true
 # set cutoff voltage to 3400mV
 ro.cutoff_voltage_mv=3400
 
+# Disable HAL3
+persist.camera.HAL3.enabled=0
+
 #force HAL1 for below packages
 camera.hal1.packagelist=com.skype.raider,com.google.android.talk,org.cyanogenmod.snap
 
