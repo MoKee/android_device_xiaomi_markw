@@ -43,6 +43,9 @@ BOARD_VENDORIMAGE_PARTITION_SIZE := 536870912
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
 
+# Shims
+TARGET_LD_SHIM_LIBS += \
+    /vendor/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
