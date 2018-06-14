@@ -45,7 +45,8 @@ TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
 
 # Shims
 TARGET_LD_SHIM_LIBS += \
-    /vendor/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
+    /vendor/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so \
+    /vendor/lib64/hw/gxfingerprint.default.so|fakelogprint.so:/vendor/lib64/hw/fingerprint.goodix.so|fakelogprint.so:/vendor/bin/gx_fpd|fakelogprint.so
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
