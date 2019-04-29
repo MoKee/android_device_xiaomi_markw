@@ -40,6 +40,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.ir@1.0-service.xiaomi_markw
 
+# Properties
+-include $(LOCAL_PATH)/prop.mk
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.markw.rc
