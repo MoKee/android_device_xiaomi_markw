@@ -44,6 +44,7 @@
 #include "QCameraTrace.h"
 
 // Media dependencies
+#include "OMX_QCOMExtns.h"
 #ifdef USE_MEDIA_EXTENSIONS
 #include <media/hardware/HardwareAPI.h>
 typedef struct VideoNativeHandleMetadata media_metadata_buffer;
@@ -652,7 +653,7 @@ int QCameraMemoryPool::findBufferLocked(
         size_t size, bool cached, cam_stream_type_t streamType)
 {
     int rc = NAME_NOT_FOUND;
-    size_t alignsize = (size + 4095U) & (~4095U);
+
     if (mPools[streamType].empty()) {
         return NAME_NOT_FOUND;
     }
@@ -660,7 +661,7 @@ int QCameraMemoryPool::findBufferLocked(
     List<struct QCameraMemory::QCameraMemInfo>::iterator it = mPools[streamType].begin();
     if (streamType == CAM_STREAM_TYPE_OFFLINE_PROC) {
         for( ; it != mPools[streamType].end() ; it++) {
-            if( ((*it).size == alignsize) &&
+            if( ((*it).size == size) &&
                     ((*it).heap_id == heap_id) &&
                     ((*it).cached == cached) ) {
                 memInfo = *it;
@@ -1290,7 +1291,7 @@ QCameraVideoMemory::QCameraVideoMemory(camera_request_memory memory, void* cbCoo
     mMetaBufCount = 0;
     mBufType = bufType;
     //Set Default color conversion format
-    mUsage = private_handle_t::PRIV_FLAGS_ITU_R_601_FR;
+    mUsage = private_handle_t::PRIV_FLAGS_ITU_R_709;
 
     //Set Default frame format
     mFormat = OMX_COLOR_FormatYUV420SemiPlanar;
@@ -1423,7 +1424,7 @@ int QCameraVideoMemory::allocateMore(uint8_t count, size_t size)
             nh->data[3] = mUsage;
             nh->data[4] = 0; //dummy value for timestamp in non-batch mode
             nh->data[5] = mFormat;
-            nh->data[6] = i;
+			nh->data[6] = i;
         }
     }
     mBufferCount = (uint8_t)(mBufferCount + count);
@@ -1477,7 +1478,7 @@ int QCameraVideoMemory::allocateMeta(uint8_t buf_cnt, int numFDs, int numInts)
                 mMetadata[j]->release(mMetadata[j]);
             }
             return NO_MEMORY;
-        } else {
+		} else {
             //assign buffer index to native handle.
             native_handle_t *nh =  mNativeHandle[i];
             nh->data[numFDs + mTotalInts] = i;
@@ -1556,7 +1557,7 @@ camera_memory_t *QCameraVideoMemory::getMemory(uint32_t index,
         bool metadata) const
 {
     int i;
-    if (index >= mMetaBufCount || (!metadata && index >= mBufferCount))
+	if (index >= mMetaBufCount || (!metadata && index >= mBufferCount))
         return NULL;
 
     if (metadata) {
@@ -1591,6 +1592,7 @@ camera_memory_t *QCameraVideoMemory::getMemory(uint32_t index,
  *
  * PARAMETERS :
  *   @index   : buffer index
+ *   @metadata: flag if it's metadata
  *
  * RETURN     : native_handle_t  * type of handle
  *==========================================================================*/
@@ -1604,10 +1606,10 @@ native_handle_t *QCameraVideoMemory::getNativeHandle(uint32_t index, bool metada
 /*===========================================================================
  * FUNCTION   : closeNativeHandle
  *
- * DESCRIPTION: static function to close video native handle.
+ * DESCRIPTION: close video native handle
  *
  * PARAMETERS :
- *   @data  : ptr to video frame to be returned
+ *   @opaque  : ptr to video frame to be returned
  *
  * RETURN     : int32_t type of status
  *              NO_ERROR  -- success
@@ -1646,11 +1648,12 @@ int QCameraVideoMemory::closeNativeHandle(const void *data)
  *              NO_ERROR  -- success
  *              none-zero failure code
  *==========================================================================*/
-int QCameraVideoMemory::closeNativeHandle(const void *data, bool metadata)
+ int QCameraVideoMemory::closeNativeHandle(const void *data, bool metadata)
 {
     int32_t rc = NO_ERROR;
 
 #ifdef USE_MEDIA_EXTENSIONS
+
     if (metadata) {
         const media_metadata_buffer *packet =
                     (const media_metadata_buffer *)data;
@@ -1666,7 +1669,7 @@ int QCameraVideoMemory::closeNativeHandle(const void *data, bool metadata)
                     mem->pHandle = NULL;
                     break;
                 }
-            }
+			}
         } else {
             LOGE("Invalid Data. Could not release");
             return BAD_VALUE;
@@ -1771,9 +1774,11 @@ int QCameraVideoMemory::convCamtoOMXFormat(cam_format_t format)
         case CAM_FORMAT_YUV_420_NV12_VENUS:
             omxFormat = OMX_COLOR_FormatYUV420SemiPlanar;
             break;
+#ifndef VANILLA_HAL
         case CAM_FORMAT_YUV_420_NV12_UBWC:
             omxFormat = QOMX_COLOR_FORMATYUV420PackedSemiPlanar32mCompressed;
             break;
+#endif
         default:
             omxFormat = OMX_COLOR_FormatYUV420SemiPlanar;
     }
@@ -1806,7 +1811,6 @@ QCameraGrallocMemory::QCameraGrallocMemory(camera_request_memory memory, void* c
         mLocalFlag[i] = BUFFER_NOT_OWNED;
         mPrivateHandle[i] = NULL;
         mBufferStatus[i] = STATUS_IDLE;
-        mCameraMemory[i] = NULL;
     }
 }
 
@@ -2342,6 +2346,14 @@ void QCameraGrallocMemory::deallocate()
         }
         mLocalFlag[cnt] = BUFFER_NOT_OWNED;
         LOGH("put buffer %d successfully", cnt);
+    }
+    if(mWindow)
+    {
+        //cleaning up buffers cached in framework
+        if(mWindow->set_buffer_count(mWindow, 0) != 0)
+        {
+            LOGE("ERROR: Cannot clean the framework cached buffers");
+        }
     }
     mBufferCount = 0;
     mMappableBuffers = 0;
