@@ -2,6 +2,9 @@
 <device name="Android">
     <item name="screen.on">63</item>
     <item name="screen.full">261</item>
+    <item name="wifi.on">0.1</item>
+    <item name="wifi.active">0.1</item>
+    <item name="wifi.scan">0.1</item>
     <array name="cpu.speeds">
         <value>200000</value>
         <value>499200</value>
@@ -22,5 +25,5 @@
     </array>
     <item name="cpu.awake">1.6</item>
     <item name="cpu.idle">1.6</item>
-    <item name="battery.capacity">4100</item>
+    <item name="battery.capacity">4000</item>
 </device>
