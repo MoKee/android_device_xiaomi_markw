@@ -26,6 +26,11 @@
 #
 
 on boot
+    chown system system /proc/gesture/onoff
+    chmod 0666 /proc/gesture/onoff
+
+   chown system system /sys/devices/soc/78b7000.i2c/i2c-3/3-004a/wakeup_mode
+   chmod 0666 /sys/devices/soc/78b7000.i2c/i2c-3/3-004a/wakeup_mode
 
     # Fingerprint
     chown system system /dev/goodix_fp
