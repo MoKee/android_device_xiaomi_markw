@@ -55,6 +55,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/atmel-maxtouch.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/atmel-maxtouch.kl \
     $(LOCAL_PATH)/keylayout/ft5346.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/ft5346.kl
 
+# Mokee hardware
+PRODUCT_PACKAGES += \
+    vendor.mokee.touch@1.0-service.xiaomi_8953
+
 # Properties
 -include $(LOCAL_PATH)/prop.mk
 
