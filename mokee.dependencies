@@ -1,0 +1,14 @@
+[
+  {
+    "repository": "android_device_xiaomi_msm8953-common",
+    "target_path": "device/xiaomi/msm8953-common"
+  },
+  {
+    "repository": "android_kernel_xiaomi_markw",
+    "target_path": "kernel/xiaomi/markw"
+  },
+  {
+    "repository": "android_vendor_xiaomi_markw",
+    "target_path": "vendor/xiaomi/markw"
+  }
+]
