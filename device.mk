@@ -60,7 +60,7 @@ PRODUCT_COPY_FILES += \
 
 # Mokee hardware
 PRODUCT_PACKAGES += \
-    vendor.mokee.touch@1.0-service.xiaomi_8953
+    vendor.mokee.touch@1.0-service.xiaomi_markw
 
 # Properties
 -include $(LOCAL_PATH)/prop.mk
