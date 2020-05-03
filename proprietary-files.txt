@@ -438,13 +438,16 @@ etc/qdcm_calib_data_nt35596_1080p_video_EBBG.xml:vendor/etc/qdcm_calib_data_nt35
 etc/qdcm_calib_data_r63350_1080p_video_Tianma.xml:vendor/etc/qdcm_calib_data_r63350_1080p_video_Tianma.xml
 
 # Fingerprint
-bin/gx_fpd:vendor/bin/gx_fpd
+bin/gx_fpd:vendor/bin/gx_fpd|b38f389fa5eb52438cf0e150e5b70db0c98ee4d5
 lib/libcom_fingerprints_service.so:vendor/lib/libcom_fingerprints_service.so
 lib/hw/fingerprint.default.so:vendor/lib/hw/fingerprint.fpc.so
 lib64/hw/fingerprint.default.so:vendor/lib64/hw/fingerprint.fpc.so
-lib64/hw/fingerprint.goodix.so:vendor/lib64/hw/fingerprint.goodix.so
+lib64/hw/fingerprint.goodix.so:vendor/lib64/hw/fingerprint.goodix.so|c66aa3eafd9dd208fb81529b8d63d8a00e80c2d6
 lib64/hw/gxfingerprint.default.so:vendor/lib64/hw/gxfingerprint.default.so
 lib64/libcom_fingerprints_service.so:vendor/lib64/libcom_fingerprints_service.so
-lib64/libfp_client.so:vendor/lib64/libfp_client.so
+lib64/libfp_client.so:vendor/lib64/libfp_client.so|c74fac2826f1ef76c32f7bb532c21cfd7bc3c852
 lib64/libfpnav.so:vendor/lib64/libfpnav.so
-lib64/libfpservice.so:vendor/lib64/libfpservice.so
+lib64/libfpservice.so:vendor/lib64/libfpservice.so|7bfd1abd31551833079e6ffe3138fa9faf9e9040
+vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.xiaomi_markw|c377ce99875da4787cbc5bf619a5d6d955f92642
+vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.xiaomi_markw.rc|69c71a71ad2866d83bd047a2442073ce0faee1f7
+vendor/lib64/libbindergx.so|eb676b92d13a7835aaab309d5c692151993e016f

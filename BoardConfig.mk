@@ -51,8 +51,7 @@ VENDOR_SECURITY_PATCH := 2018-04-01
 
 # Shims
 TARGET_LD_SHIM_LIBS += \
-    /vendor/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so \
-    /vendor/lib64/hw/gxfingerprint.default.so|fakelogprint.so:/vendor/lib64/hw/fingerprint.goodix.so|fakelogprint.so:/vendor/bin/gx_fpd|fakelogprint.so
+    /vendor/bin/mm-qcamera-daemon|libshims_qcamera-daemon.so
 
 # Treble
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
